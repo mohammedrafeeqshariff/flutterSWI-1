@@ -55,8 +55,6 @@ Flutter uses the Skia rendering engine, so the same rendering pipeline is used o
 ### Overview
 TaskEase is a cross-platform productivity application built using Flutter. While the app performs smoothly on Android, users experienced noticeable lag on iOS when adding or removing tasks. This case study analyzes the root cause of the issue and explains how Flutter’s reactive rendering model and Dart’s async execution help maintain smooth performance across platforms when used correctly.
 
----
-
 ### Problem Analysis: Why the App Felt Laggy on iOS
 
 After reviewing the codebase, the following performance issues were identified:
@@ -73,8 +71,6 @@ Calling `setState()` at a high level caused Flutter to:
 
 iOS devices are more sensitive to frame drops (60/120 FPS), making the lag more noticeable compared to Android.
 
----
-
 ### How Improper State Management Causes Performance Issues
 
 Flutter’s UI is rebuilt in response to state changes. When state is poorly structured:
@@ -83,8 +79,6 @@ Flutter’s UI is rebuilt in response to state changes. When state is poorly str
 - Frame rendering exceeds the ~16ms budget, causing UI jank
 
 The issue was not Flutter itself, but **how state and widget rebuilding were handled**.
-
----
 
 ### Flutter’s Reactive Rendering Model
 
@@ -99,8 +93,6 @@ By default, Flutter performs:
 - Minimal repainting
 
 When `setState()` is used correctly and locally, Flutter avoids unnecessary work and maintains a smooth frame rate.
-
----
 
 ### Optimized Solution Applied in TaskEase
 
@@ -118,8 +110,6 @@ To fix the performance issue, the following improvements were made:
 - CPU and GPU workload per frame is significantly reduced
 
 This resulted in smooth interactions on both Android and iOS.
-
----
 
 ### Dart’s Async Model and Smooth UI Performance
 
